@@ -6,7 +6,7 @@
 
 * В админ панеле перейти Extensions → Payments → Platon.
 
-* Нажите "Install", потом "Edit".
+* Нажмите "Install", потом "Edit".
 
 * В настройках указать ключ и пароль. Настройте статусы транзакций Pending для Order Status и Refunded как Refunded Order Status.
 
