@@ -13,4 +13,4 @@
 * Установить значение платежного метода в статус Enabled.
 
 Ссылка для коллбеков:
-https://АДРЕСС_САЙТА/index.php?route=extension/payment/platon/callback
+https://ВАШ_САЙТ/index.php?route=extension/payment/platon/callback
