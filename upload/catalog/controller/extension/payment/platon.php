@@ -84,6 +84,8 @@ class ControllerExtensionPaymentPlaton extends Controller {
             die('ERROR: Bad order ID');
         }
 
+        $this->checkAmounts($order_info, $this->request->post);
+
         switch ($this->request->post['status']) {
             case 'SALE':
                 $order_status_id = $this->config->get('payment_platon_processed_status_id');
@@ -113,4 +115,29 @@ class ControllerExtensionPaymentPlaton extends Controller {
         return $this->logObj;
     }
 
+    private function checkAmounts($order_info, $callback_data) {
+        if (!isset($order_info['total'])) {
+            $this->log('ERROR: order doesn\'t have "total" field');
+
+            return;
+        }
+
+        if (!isset($callback_data['amount'])) {
+            $this->log('ERROR: callback data doesn\'t have "amount" field');
+
+            return;
+        }
+
+        $order_total_amount = (float) $order_info['total'];
+
+        $order_amount_from_callback = (float) $callback_data['amount'];
+
+        if (abs($order_total_amount - $order_amount_from_callback) > .01) {
+            $errorText = "ERROR: order($order_total_amount) and callback($order_amount_from_callback) amounts don't match";
+
+            $this->log($errorText);
+
+            die($errorText);
+        }
+    }
 }
